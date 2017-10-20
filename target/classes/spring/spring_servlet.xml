@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-4.1.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-4.1.xsd"
+	>
+	
+	<!-- 在DispatcherServlet之前进行servlet过滤，处理静态资源 -->
+	<!-- <mvc:default-servlet-handler /> -->
+	<mvc:annotation-driven>
+		<!-- 格式设置转换 -->
+		<!-- <mvc:return-value-handlers></mvc:return-value-handlers>
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="">
+					<list>
+						<value></value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters> -->
+	</mvc:annotation-driven>
+
+	<!-- 注入@Autowired等注解类的bean(context:component-scan包含不仅仅包含这些功能) -->
+	<!-- <context:annotation-config></context:annotation-config> -->
+
+	<!-- 启动包扫描功能，以便注册带有@Controller、@Service、@repository、@Component等注解的类成为spring的bean -->
+	<context:component-scan base-package="com.controls" use-default-filters="true">
+		<!-- 指定包不扫描(需要设置use-default-filters为false) -->
+		<!-- <context:exclude-filter type="annotation" expression=""/> -->
+		<!-- 只扫描指定包(需要设置use-default-filters为false) -->
+		<!-- <context:include-filter type="annotation" expression=""/> -->
+	</context:component-scan>
+	
+	
+	<!-- 切面代理(也会进行@Aspect等注解的扫描注入) -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+</beans>
